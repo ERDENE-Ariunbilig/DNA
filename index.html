@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Structure</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,light_mode" />
+</head>
+<body>
+    <button id="theme-toggle" class="theme-toggle">
+        <span class="material-symbols-outlined light-icon">light_mode</span>
+        <span class="material-symbols-outlined dark-icon">dark_mode</span>
+    </button>
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.74/build/spline-viewer.js"></script>
+    <spline-viewer url="https://prod.spline.design/AGknMzDNIS8vjJ9U/scene.splinecode"></spline-viewer>
+    <div class="watermark-overlay"></div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.classList.add(savedTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', 
+                body.classList.contains('dark-mode') ? 'dark-mode' : ''
+            );
+        });
+    </script>
+</body>
+</html>

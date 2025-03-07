@@ -1,0 +1,275 @@
+spline-viewer {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    scale: 1;  /* Default scale for desktop */
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+/* Hide Spline watermark - multiple approaches combined */
+.spline-watermark,
+[data-spline-watermark],
+.watermark,
+.spline-viewer-overlay,
+spline-viewer::part(watermark),
+.spline-viewer-overlay,
+[data-spline] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Create overlay to hide watermark */
+.watermark-overlay {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 100px;
+    background-color: white;
+    z-index: 999999 !important;
+    transition: background-color 0.3s ease;
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Theme icons */
+.material-symbols-outlined {
+    font-size: 24px;
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    transition: opacity 0.3s ease;
+}
+
+.light-icon,
+.dark-icon {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.light-icon {
+    opacity: 0;
+}
+
+.dark-icon {
+    opacity: 1;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+}
+
+body.dark-mode .theme-toggle {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .light-icon {
+    opacity: 1;
+}
+
+body.dark-mode .dark-icon {
+    opacity: 0;
+}
+
+body.dark-mode .watermark-overlay {
+    background-color: #1a1a1a;
+}
+
+/* DNA Info styles */
+.dna-info {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.dna-info h2 {
+    margin-top: 0;
+    color: white;
+}
+
+.dna-info ul {
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+.dna-info ul ul {
+    margin-top: 5px;
+    margin-left: 15px;
+    list-style-type: disc;
+}
+
+.dna-info li {
+    margin: 8px 0;
+    color: white;
+}
+
+/* Light mode adjustments */
+body:not(.dark-mode) .dna-info {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+body:not(.dark-mode) .dna-info h2,
+body:not(.dark-mode) .dna-info p,
+body:not(.dark-mode) .dna-info li {
+    color: #333;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .theme-toggle {
+        bottom: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .watermark-overlay {
+        width: 250px;
+        height: 80px;
+        z-index: 999999 !important;
+    }
+
+    spline-viewer {
+        scale: 0.8;  /* Tablet size */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .theme-toggle {
+        bottom: 10px;
+        left: 10px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .watermark-overlay {
+        width: 200px;
+        height: 70px;
+        z-index: 999999 !important;
+    }
+
+    spline-viewer {
+        scale: 0.7;  /* Mobile size */
+    }
+}
+
+/* For very small devices */
+@media screen and (max-width: 320px) {
+    .theme-toggle {
+        width: 30px;
+        height: 30px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 18px;
+    }
+
+    .watermark-overlay {
+        width: 180px;
+        height: 60px;
+        z-index: 999999 !important;
+    }
+
+    spline-viewer {
+        scale: 0.6;  /* Small mobile size */
+    }
+}
+
+/* For landscape orientation */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .theme-toggle {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    spline-viewer {
+        scale: 0.65;
+    }
+}
+
+/* Signature styles */
+.signature {
+    position: fixed;
+    top: 30px;
+    right: 35px;
+    font-family: 'mono';
+    font-size: 24px;
+    color: #FF9b00;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 4px;
+}
+
+.signature:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 15px rgba(255, 155, 0, 0.4);
+}
+
+/* Responsive signature */
+@media screen and (max-width: 768px) {
+    .signature {
+        font-size: 20px;
+        top: 25px;
+        right: 25px;
+        letter-spacing: 6px;
+        padding: 8px 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .signature {
+        font-size: 18px;
+        top: 20px;
+        right: 20px;
+        letter-spacing: 4px;
+        padding: 6px 10px;
+    }
+}
